@@ -1,2 +1,2 @@
 # dotfiles
-Just an area where Ill keep my Linux hidden folders.
+Just an area where I will keep my Linux hidden folders.
