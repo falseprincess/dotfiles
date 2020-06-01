@@ -1,0 +1,26 @@
+[options]
+font = Terminus 8
+
+[colors]
+background = rgba(34, 43, 46, 0.9)
+cursor = #d6d6d6
+foreground = 
+color0 = #1E1014
+color1 = #d25252
+color2 = #dbe7c0
+color3 = #FFD594
+color4 = #B8CF82
+color5 = #EFB5F7
+color6 = #9AA8BB
+color7 = #eeeeec
+color8 = #535353
+color9 = #f00c0c
+color10 = #c2e075
+color11 = #e1e48b
+color12 = #8BD8CB
+color13 = #F6D6FB
+color14 = #D27988
+color15 = #ffffff
+colorBD = #ffffff
+colorIT =
+colorUL =
