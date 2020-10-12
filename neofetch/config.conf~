@@ -1,7 +1,7 @@
 # See this wiki page for more info:
 # https://github.com/dylanaraps/neofetch/wiki/Customizing-Info
 print_info() {
-   # info title
+    info title
     info underline
 
     info "OS" distro
@@ -29,12 +29,12 @@ print_info() {
     # info "Font" font
     # info "Song" song
     # [[ "$player" ]] && prin "Music Player" "$player"
-    info "Local IP" local_ip
+    # info "Local IP" local_ip
     # info "Public IP" public_ip
     # info "Users" users
     # info "Locale" locale  # This only works on glibc systems.
 
-     #  info cols
+       info cols
 }
 
 # Title
@@ -511,7 +511,7 @@ mpc_args=()
 # Example:
 # colors=(distro)      - Text is colored based on Distro colors.
 # colors=(4 6 1 8 8 6) - Text is colored in the order above.
-colors=(1 6 1 8 5 6)
+colors=(4 6 2 8 5 6)
 
 
 # Text Options
@@ -536,12 +536,7 @@ underline_enabled="on"
 # Default:  '-'
 # Values:   'string'
 # Flag:     --underline_char
-underline_char="
-
-
-
-
-"
+underline_char="-"
 
 
 # Info Separator
@@ -585,9 +580,9 @@ color_blocks="on"
 # Color block width in spaces
 #
 # Default:  '3'
-# Values:   'num'htop
+# Values:   'num'
 # Flag:     --block_width
-block_width=2
+block_width=3
 
 # Color block height in lines
 #
@@ -698,7 +693,7 @@ image_backend="w3m"
 # NOTE: 'auto' will pick the best image source for whatever image backend is used.
 #       In ascii mode, distro ascii art will be used and in an image mode, your
 #       wallpaper will be used.
-# image_source="/home/sudozelda/Pictures/index2.png"
+image_source="/home/sudozelda/Pictures/index2.png"
 
 
 # Ascii Options
@@ -750,7 +745,7 @@ image_backend="w3m"
 #       Slackware, SunOS, LinuxLite, OpenSUSE, Raspbian,
 #       postmarketOS, and Void have a smaller logo variant.
 #       Use '{distro name}_small' to use the small variants.
-ascii_distro="Arch_old"
+ascii_distro="auto"
 
 # Ascii Colors
 #
@@ -816,7 +811,7 @@ crop_offset="center"
 # Values:  'auto', '00px', '00%', 'none'
 # Flags:   --image_size
 #          --size
-image_size="160px"
+image_size="203px"
 
 # Gap between image and text
 #
