@@ -3,6 +3,7 @@
 /* Personal definitions */
 #define TERMINAL "st"
 #define EDITOR "emacs"
+/* #define EDITOR "vim" */
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -15,10 +16,10 @@ static const unsigned int gappoh    = 18;       /* horiz outer gap between windo
 static const unsigned int gappov    = 18;       /* vert outer gap between windows and screen edge */
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int user_bh = 0; /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = { "Terminus:size=8", "FontAwesome:pixelsize=14:hinting=true:antialias=true" };
-static const char dmenufont[]       = "Terminus:size=8";
+static const char *fonts[]          = { "Terminus:size=9:antialias=true:autohint=true", "FontAwesome:pixelsize=14:antialias=true:autohint=true" };
+static const char dmenufont[]       = "Terminus:size=9";
 
-/* My nord colors */
+/* Nord color definitions */
 static const char col_gray1[]       = "#2E3440";
 static const char col_gray2[]       = "#3B4252";
 static const char col_gray3[]       = "#434C5E";
@@ -33,23 +34,24 @@ static const char col_green[]       = "#a3be8c";
 static const char col_yellow[]      = "#EBCB8B";
 static const char col_orange[]      = "#d08770";
 static const char col_white[]       = "#D8DEE9";
+static const char col_purple[]      = "#B48EAD";
 static const char col_articgray1[]   = "#697792";
-static const char col_articgray2[]   = "#5F6B84";
+static const char col_articgray2[]   = "#5F6B84"; 
 
 /* Setting colors */
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray4, col_gray1, col_gray4 },
-	[SchemeSel]  = { col_gray4, col_lightblue,  col_lightblue  },
-   	[SchemeStatus]  = { col_white, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = { col_lightblue, col_gray1,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-        [SchemeTagsNorm]  = { col_gray4, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-        [SchemeInfoSel]  = { col_green, col_gray1,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-        [SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+	[SchemeNorm] = { col_gray1, col_gray1, col_gray4 },
+	[SchemeSel]  = { col_gray1, col_gray1,  col_lightblue  },
+   	[SchemeStatus]  = { col_white, col_gray2,  "#000000"  }, // Statusbar right 
+	[SchemeTagsSel]  = { col_gray1, col_lightblue,  "#000000"  }, // Tagbar left selected 
+        [SchemeTagsNorm]  = { col_white, col_gray2,  "#000000"  }, // Tagbar left unselected 
+        [SchemeInfoSel]  = { col_gray1, col_lightblue,  "#000000"  }, // infobar middle selected 
+        [SchemeInfoNorm]  = { col_white, col_gray2,  "#000000"  }, // infobar middle unselected 
 };
 
 /* tagging */
-static const char *tags[] = { "web [1]", "term [2]", "dev [3]", "chat [4]", "gfx [5]", "virt [6]" };
+static const char *tags[] = { "web", "term", "games", "chat", "gfx", "virt", "misc" };
 /* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
 
 /* Window rules */
@@ -60,7 +62,9 @@ static const Rule rules[] = {
 	{ "Gpick",    NULL,       NULL,       0,                 1,           -1 },
 	{ "qview",    NULL,       NULL,       0,                 1,           -1 },
 	{ "Nitrogen",    NULL,    NULL,       0,                 1,           -1 },
+	{ "Steam",    NULL,       NULL,       1 << 2,            1,           -1 },
 	{ "Pavucontrol",  NULL,   NULL,       0,                 1,           -1 },
+	{ "Lxappearance",  NULL,   NULL,      0,                 1,           -1 },
 };
 
 /* layout(s) */
@@ -70,9 +74,9 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "| tall ",      tile },    /* first entry is default */
-	{ "| float ",      NULL },    /* no layout function means floating behavior */
-	{ "| max ",      monocle },
+	{ "[]=",      tile },    /* first entry is default */
+	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "M",      monocle },
 };
 
 /* Autostart !!! */
@@ -99,7 +103,7 @@ static const char *editorcmd[] = { EDITOR, NULL, };
 static const char *termcmd[]  = { TERMINAL, NULL, };
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *killcmd[] = { "xdotool", "getactivewindow", "windowkill", NULL, };
-static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray4, "-sb", col_blue, "-sf", col_white, "-h", "19", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_white, "-sb", col_teal, "-sf", col_gray1, "-h", "19", NULL };
 
 /* Hotkeys */
 static Key keys[] = {
@@ -151,17 +155,17 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Delete,               spawn, CMD("betterlockscreen -l blur") },
 
 	/* Personal gui program hotkeys */
-	{ MODKEY|ControlMask,           XK_d,      spawn,          CMD("discord") },
+	{ MODKEY|ControlMask,           XK_d,      spawn,          CMD("Discord") },
+	{ MODKEY|ControlMask,           XK_s,      spawn,          CMD("spotify") },
 	{ MODKEY|ControlMask,           XK_b,      spawn,          CMD("firefox") },
 	{ MODKEY|ControlMask,           XK_n,      spawn,          CMD("nitrogen") },
 	{ MODKEY|ControlMask,           XK_p,      spawn,          CMD("pavucontrol") },
-	{ MODKEY|ControlMask,           XK_f,      spawn,          CMD("pcmanfm") },
-        { MODKEY|ControlMask,           XK_t,      spawn,          CMD("xfce4-taskmanager") },
+	{ MODKEY|ControlMask,           XK_f,      spawn,          CMD("pcmanfm") }, 
 
         /* Personal tui program hotkeys */
 	{ MODKEY|ControlMask,           XK_h,      spawn,          CMD(TERMINAL " -e htop") },
-	{ MODKEY|ControlMask,           XK_u,      spawn,          CMD(TERMINAL " -e unimatrix -c blue") },
-        { MODKEY|ControlMask,           XK_w,      spawn,          CMD(TERMINAL " -e nmtui") },	
+        { MODKEY|ControlMask,           XK_w,      spawn,          CMD(TERMINAL " -e nmtui") },
+        { MODKEY|ControlMask,           XK_u,      spawn,          CMD(TERMINAL " -e unimatrix -c blue -n -s 92 -u 'Void'") },	
 	
 	/* Screenshot */
 	{ 0,                            XK_Print,   spawn,         CMD("gnome-screenshot -i") },          
