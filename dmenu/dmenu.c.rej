@@ -1,10 +1,38 @@
---- dmenu.c
-+++ dmenu.c
-@@ -36,6 +38,7 @@ struct item {
- 	int out;
- };
+--- dmenu.c	2019-02-02 13:55:02.000000000 +0100
++++ dmenu.c	2020-04-04 10:27:43.888026309 +0200
+@@ -26,7 +26,9 @@
+ #define TEXTW(X)              (drw_fontset_getwidth(drw, (X)) + lrpad)
  
-+static char numbers[NUMBERSBUFSIZE] = "";
- static char text[BUFSIZ] = "";
- static char *embed;
- static int bh, mw, mh;
+ /* enums */
+-enum { SchemeNorm, SchemeSel, SchemeOut, SchemeLast }; /* color schemes */
++enum { SchemeNorm, SchemeSel, SchemeNormHighlight, SchemeSelHighlight,
++       SchemeOut, SchemeLast }; /* color schemes */
++
+ 
+ struct item {
+ 	char *text;
+@@ -725,7 +769,8 @@ static void
+ usage(void)
+ {
+ 	fputs("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
+-	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
++	      "             [-nb color] [-nf color] [-sb color] [-sf color]\n"
++	      "             [-nhb color] [-nhf color] [-shb color] [-shf color] [-w windowid]\n", stderr);
+ 	exit(1);
+ }
+ 
+@@ -766,6 +811,14 @@ main(int argc, char *argv[])
+ 			colors[SchemeSel][ColBg] = argv[++i];
+ 		else if (!strcmp(argv[i], "-sf"))  /* selected foreground color */
+ 			colors[SchemeSel][ColFg] = argv[++i];
++		else if (!strcmp(argv[i], "-nhb")) /* normal hi background color */
++			colors[SchemeNormHighlight][ColBg] = argv[++i];
++		else if (!strcmp(argv[i], "-nhf")) /* normal hi foreground color */
++			colors[SchemeNormHighlight][ColFg] = argv[++i];
++		else if (!strcmp(argv[i], "-shb")) /* selected hi background color */
++			colors[SchemeSelHighlight][ColBg] = argv[++i];
++		else if (!strcmp(argv[i], "-shf")) /* selected hi foreground color */
++			colors[SchemeSelHighlight][ColFg] = argv[++i];
+ 		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
+ 			embed = argv[++i];
+ 		else
