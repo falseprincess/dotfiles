@@ -1,3 +1,4 @@
+
 /* See LICENSE file for copyright and license details. */
 
 /* interval between updates (in ms) */
@@ -66,8 +67,9 @@ static const struct arg args[] = {
 	//{ datetime, "%s",           "%F %T" },
 	//{ wifi_perc, "W: (%3s%% on ", "wlp8s0" },
   // { run_command, "[kernel - %4s] ", "uname -sr" }, //
-        { netspeed_rx, "   %sB/s  |  ", "eno1" },
+        { netspeed_rx, "   %sB/s  |  ", "wlo1" },
 	{ run_command, "%4s  |  ", "amixer sget Master | awk -F\"[][]\" '/%/ { print $2 }' | head -n1" },
 	{ battery_perc, " %s%%  |  ", "BAT0"        },
-	{ datetime, "%s",           "%r " },
+	{ run_command, " VPN:%s  |  ", "ip a | grep mlvd-us180 | grep inet | wc -l", },
+	{ datetime, "%s",           "%b %e %a, %I:%M %p " },
 };
