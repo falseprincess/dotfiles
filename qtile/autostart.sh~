@@ -7,4 +7,3 @@ nitrogen --restore &
 picom --config /home/sudozelda/.picom.conf &
 
 # --- Autostarting my policykit
-/usr/bin/lxpolkit &
