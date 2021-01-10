@@ -70,6 +70,6 @@ static const struct arg args[] = {
         { netspeed_rx, "   %sB/s  |  ", "wlo1" },
 	{ run_command, "%4s  |  ", "amixer sget Master | awk -F\"[][]\" '/%/ { print $2 }' | head -n1" },
 	{ battery_perc, " %s%%  |  ", "BAT0"        },
-	{ run_command, " VPN:%s  |  ", "ip a | grep mlvd-us180 | grep inet | wc -l", },
+	{ run_command, " %s  |  ", "mullvad status 2> /dev/null | head -n 1 | awk '{ print $3 }'", },
 	{ datetime, "%s",           "%b %e %a, %I:%M %p " },
 };
