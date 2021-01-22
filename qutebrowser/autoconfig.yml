@@ -18,15 +18,38 @@ settings:
     global: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
       Gecko) Chrome/85.0.4183.121 Safari/537.36
   content.javascript.enabled:
+    '*://*.account.live.com/*': true
+    '*://*.apply.checkr.com/*': true
+    '*://123movies.net/*': true
     '*://123moviesfree.net/*': true
+    '*://app.payable.com/*': true
+    '*://azm.to/*': true
+    '*://candidate.checkr.com/*': true
     '*://docs.voidlinux.org/*': true
     '*://duckduckgo.com/*': true
+    '*://forms.office.com/*': true
     '*://github.com/*': true
+    '*://gitlab.com/*': true
     '*://html.duckduckgo.com/*': true
+    '*://localhost/*': true
+    '*://login.live.com/*': true
+    '*://mail.tutanota.com/*': true
     '*://mullvad.net/*': true
+    '*://privacytools.io/*': true
     '*://search.disroot.org/*': true
     '*://start.duckduckgo.com/*': true
+    '*://temp-mail.org/*': true
+    '*://unsplash.com/*': true
+    '*://wallhaven.cc/*': true
+    '*://wiki.archlinux.org/*': true
+    '*://wvw1.123movies.net/*': true
+    '*://www.microsoft.com/*': true
+    '*://www.youtube.com/*': true
     global: false
+  content.notifications:
+    https://www.reddit.com: false
+  content.register_protocol_handler:
+    https://mail.tutanota.com#url=%25s: false
   fonts.completion.category:
     global: terminus
   fonts.contextmenu:

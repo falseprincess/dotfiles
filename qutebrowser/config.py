@@ -1782,7 +1782,7 @@ c.tabs.padding = {'top': 3, 'bottom': 3, 'left': 5, 'right': 5}
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-# c.url.default_page = 'https://start.duckduckgo.com/'
+c.url.default_page = 'https://search.privacytools.io/searx/'
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
@@ -1818,7 +1818,7 @@ c.tabs.padding = {'top': 3, 'bottom': 3, 'left': 5, 'right': 5}
 ## the search engine name to the search term, e.g. `:open google
 ## qutebrowser`.
 ## Type: Dict
-# c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
+c.url.searchengines = {'DEFAULT': 'https://search.privacytools.io/searx/?q={}'}
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
