@@ -22,7 +22,6 @@
 #include <string.h>
 #include <signal.h>
 #include <xcb/randr.h>
-#include <X11/XF86keysym.h>
 #include <xcb/xcb_keysyms.h>
 #include <xcb/xcb_icccm.h>
 #include <xcb/xcb_ewmh.h>
