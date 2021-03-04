@@ -1,100 +1,40 @@
 #!/usr/bin/env bash
-
-# This is a customized Herbstluftwm config by Falseprincess.
-
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# >=>    >=> >=>       >=>        >=> >=>       >=> -
+# >=>    >=> >=>       >=>        >=> >> >=>   >>=> -
+# >=>    >=> >=>       >=>   >>   >=> >=> >=> > >=> -
+# >=====>>=> >=>       >=>  >=>   >=> >=>  >=>  >=> -
+# >=>    >=> >=>       >=> >> >=> >=> >=>   >>  >=> -
+# >=>    >=> >=>       >> >>    >===> >=>       >=> -
+# >=>    >=> >=======> >=>        >=> >=>       >=> -
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# --- Falseprincess' Herbstluftwm config.
+#
+# --- Defining the Hlwm client.
 hc() {
     herbstclient "$@"
 }
 
-hc emit_hook reload
+# --- Autostarting some programs.
+xrandr --refresh 144 &
+xsetroot -cursor_name left_ptr &
+hsetroot -fill $HOME/Pictures/Wallpapers/wall.jpg -blur 1
 
-xsetroot -solid '#5A8E3A'
-
-
-# remove all existing keybindings
+# --- remove all existing keybindings
 hc keyunbind --all
 
-# The Modkey
-Mod=Mod4 # Default Metakey
+# --- Setting some variables.
+Mod=Mod4                       # Setting my modifier key.
+MENU="dmenu_run"               # My preferred menu program.
+TERM="alacritty"               # My preferred terminal.
+ALTTERM="st"                   # My alt terminal.
+EDITOR="vim"                   # My preferred text editor.
 
-# Default Herbstluftwm Keybindings
-hc keybind $Mod-Shift-q quit # Logout of Herbstluftwm
-hc keybind $Mod-Shift-r reload # Restart Herbstluftwm
-hc keybind $Mod-Shift-c close # Close Window
-hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}" # Default terminal
-
-# System Keybindings
-hc keybind XF86PowerDown spawn systemctl reboot 
-
-# Personal Keybindings
-hc keybind $Mod-p spawn dmenu_run -fn Terminus-8 -nb '#4C566A' -nf '#D8DEE9' -h 25 -sb '#88C0D0' -sf '#2E3440'
-hc keybind $Mod-Control-b spawn firefox-beta
-hc keybind $Mod-Control-f spawn nemo
-hc keybind $Mod-Control-d spawn com.discordapp.Discord
-hc keybind $Mod-Control-s spawn com.spotify.Client
-hc keybind $Mod-Control-p spawn pavucontrol
-hc keybind $Mod-Control-n spawn nitrogen
-hc keybind $Mod-Control-g spawn alacritty -e gotop
-hc keybind $Mod-Control-t spawn xfce4-taskmanager
-hc keybind $Mod-Control-1 spawn alacritty -e micro ~/.config/herbstluftwm/autostart
-hc keybind $Mod-Control-2 spawn alacritty -e micro ~/.config/polybar/config.ini
-hc keybind $Mod-Control-3 spawn betterlockscreen -l
-hc keybind $Mod-Control-w spawn alacritty -e nmtui
-
-# Brightness Adjustment
-hc keybind XF86MonBrightnessUp spawn brightnessctl s +10%
-hc keybind XF86MonBrightnessDown spawn brightnessctl s 10%-
-
-## volume control
-hc keybind XF86AudioRaiseVolume spawn amixer -D pulse sset Master '5%+'
-hc keybind XF86AudioLowerVolume spawn amixer -D pulse sset Master '5%-'
-hc keybind XF86AudioMute spawn amixer set Master toggle
-
-# Screenshots
-hc keybind Print spawn gnome-screenshot -i
-hc keybind $Mod-Print spawn gnome-screenshot
-
-# basic movement in tiling and floating mode
-# focusing clients
-hc keybind $Mod-Left  focus left
-hc keybind $Mod-Down  focus down
-hc keybind $Mod-Up    focus up
-hc keybind $Mod-Right focus right
-hc keybind $Mod-h     focus left
-hc keybind $Mod-j     focus down
-hc keybind $Mod-k     focus up
-hc keybind $Mod-l     focus right
-
-# moving clients in tiling and floating mode
-hc keybind $Mod-Shift-Left  shift left
-hc keybind $Mod-Shift-Down  shift down
-hc keybind $Mod-Shift-Up    shift up
-hc keybind $Mod-Shift-Right shift right
-hc keybind $Mod-Shift-h     shift left
-hc keybind $Mod-Shift-j     shift down
-hc keybind $Mod-Shift-k     shift up
-hc keybind $Mod-Shift-l     shift right
-
-# splitting frames
-# create an empty frame at the specified direction
-hc keybind $Mod-u       split   bottom  0.5
-hc keybind $Mod-o       split   right   0.5
-# let the current frame explode into subframes
-hc keybind $Mod-Control-space split explode
-
-# resizing frames and floating clients
-resizestep=0.04;
-hc keybind $Mod-Control-h       resize left +$resizestep
-hc keybind $Mod-Control-j       resize down +$resizestep
-hc keybind $Mod-Control-k       resize up +$resizestep
-hc keybind $Mod-Control-l       resize right +$resizestep
-hc keybind $Mod-Control-Left    resize left +$resizestep
-hc keybind $Mod-Control-Down    resize down +$resizestep
-hc keybind $Mod-Control-Up      resize up +$resizestep
-hc keybind $Mod-Control-Right   resize right +$resizestep
-
-# tags
-tag_names=( {1..9} )
+# --- Tags.
+# tag_names=("term" "web" "chat" "code" "media" "games" "gfx" "virt" "misc")
+# tag_names=( "1" "2" "3" "4" "5" "6" "7" "8" "9" "0" )
+tag_names=("I" "II" "III" "IV" "V" "VI" "VII" "VIII" "IX" "X") 
 tag_keys=( {1..9} 0 )
 
 hc rename default "${tag_names[0]}" || true
@@ -107,16 +47,83 @@ for i in "${!tag_names[@]}" ; do
     fi
 done
 
-# cycle through tags
-hc keybind $Mod-period use_index +1 --skip-visible
-hc keybind $Mod-comma  use_index -1 --skip-visible
+# --- Find the panel.
+panel=$HOME/.config/polybar/launch.sh
+[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+for monitor in $(hc list_monitors | cut -d: -f1) ; do
+    # start it on each monitor
+    "$panel" "$monitor" &
+done
+
+# --- Keys.
+# Hlwm and essential program keys.
+hc keybind $Mod-Shift-q quit
+hc keybind $Mod-Shift-r reload
+hc keybind $Mod-Shift-c close
+hc keybind $Mod-Shift-x close_and_remove
+
+hc keybind $Mod-Shift-Return spawn $TERM -e fish
+hc keybind $Mod-Control-w spawn $TERM -e nmtui
+hc keybind $Mod-Control-h spawn $TERM -e htop
+
+hc keybind $Mod-Return spawn $ALTTERM -e fish
+hc keybind $Mod-Control-e spawn $TERM -e $EDITOR
+hc keybind $Mod-p spawn $MENU -p "RUN ->"
+hc keybind $Mod-Control-d spawn lightcord
+hc keybind $Mod-Control-b spawn librewolf
+hc keybind $Mod-Control-n spawn nitrogen
+hc keybind $Mod-Control-f spawn pcmanfm
+
+# Brightness.
+hc keybind XF86MonBrightnessUp spawn brightnessctl s 2%+
+hc keybind XF86MonBrightnessDown spawn brightnessctl s 2%-
+
+# Volume.
+hc keybind XF86AudioRaiseVolume spawn amixer -c 0 sset Master 5+ unmute
+hc keybind XF86AudioLowerVolume spawn amixer -c 0 sset Master 5- unmute
+hc keybind XF86AudioMute spawn amixer -q set Master toggle
+
+# Screenshot.
+hc keybind Print spawn gnome-screenshot -i
+
+# On the fly window gap adjustment.
+hc keybind $Mod-Shift-period cycle_value window_gap 0 5 10 15 20 25 30 35 40
+hc keybind $Mod-Shift-comma cycle_value window_gap 40 35 30 25 20 15 10 5 0 
+
+# basic movement in tiling and floating mode
+hc keybind $Mod-Left  focus left
+hc keybind $Mod-Down  focus down3
+hc keybind $Mod-Up    focus up
+hc keybind $Mod-Right focus right
+hc keybind $Mod-h     cycle_all -1
+hc keybind $Mod-j     focus down
+hc keybind $Mod-k     focus up
+hc keybind $Mod-l     cycle_all +1
+
+# moving clients in tiling and floating mode 
+hc keybind $Mod-Shift-h     shift left
+hc keybind $Mod-Shift-j     shift down
+hc keybind $Mod-Shift-k     shift up
+hc keybind $Mod-Shift-l     shift right
+
+# Splitting frames.
+hc keybind $Mod-u       split   bottom  0.5
+hc keybind $Mod-o       split   right   0.5
+
+# resizing frames and floating clients
+resizestep=0.02
+hc keybind $Mod-Control-h       resize left +$resizestep
+hc keybind $Mod-Control-j       resize down +$resizestep
+hc keybind $Mod-Control-k       resize up +$resizestep
+hc keybind $Mod-Control-l       resize right +$resizestep
 
 # layouting
-hc keybind $Mod-r remove # Remove Frame
-hc keybind $Mod-t floating toggle # Toggle floating for current workspace
-hc keybind $Mod-f fullscreen toggle # Toggle fullscreen for current workspace
-hc keybind $Mod-Shift-f set_attr clients.focus.floating toggle # Toggle floating for focused window
-hc keybind $Mod-Shift-p pseudotile toggle
+hc keybind $Mod-r remove
+hc keybind $Mod-Shift-t floating toggle
+hc keybind $Mod-f fullscreen toggle
+hc keybind $Mod-t set_attr clients.focus.floating toggle
+# hc keybind $Mod-p pseudotile toggle
+
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
@@ -133,76 +140,66 @@ hc mousebind $Mod-Button3 resize
 
 # focus
 hc keybind $Mod-BackSpace   cycle_monitor
-hc keybind $Mod-Tab         cycle_all +1
-hc keybind $Mod-Shift-Tab   cycle_all -1
 hc keybind $Mod-c cycle
 hc keybind $Mod-i jumpto urgent
 
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color '#A3BE8C'
-hc set frame_border_normal_color '#4C566A'
-hc set frame_bg_normal_color '#4C566A'
-hc set frame_bg_active_color '#345F0C'
+hc set window_border_active_color '#2E3440'
+hc set frame_border_active_color '#2E3440'
+hc set frame_border_inner_color '#88C0D0'
+hc set frame_border_normal_color '#2E3440'
+hc set frame_bg_normal_color '#2E3440'
+hc set frame_bg_active_color '#2E3440'
 hc set frame_border_width 0
 hc set always_show_frame off
 hc set frame_bg_transparent on
 hc set frame_transparent_width 0
-hc set frame_gap 16
+#To hide frame at startup
+hc set frame_active_opacity 0
 
-hc attr theme.active.color '#88C0D0'
-hc attr theme.normal.color '#434C5E'
+hc attr theme.normal.color '#2E3440'
 hc attr theme.urgent.color '#BF616A'
-hc attr theme.inner_width 1
-hc attr theme.inner_color '#434C5E'
-hc attr theme.border_width 4
-hc attr theme.floating.border_width 4
-hc attr theme.floating.outer_width 0
-hc attr theme.floating.outer_color '#4C566A'
-hc attr theme.active.inner_color '#434C5E'
-hc attr theme.active.outer_color '#434C5E'
-hc attr theme.background_color '#434C5E'
+hc attr theme.inner_width 3
+hc attr theme.inner_color '#4C566A'
+hc attr theme.border_width 14
+hc attr theme.floating.border_width 14
+hc attr theme.floating.outer_width 5
+hc attr theme.floating.outer_color '#2E3440'
+hc attr theme.active.inner_color '#81A1C1'
+hc attr theme.active.outer_color '#2E3440'
+hc attr theme.background_color '#2E3440'
 
-hc set window_gap 0
-hc set frame_padding 0
+# --- Misc Hlwm rules.
+hc emit_hook reload
+hc set window_gap -2
+hc pad 0 37 6 6 6
+hc set frame_padding 6
+hc set frame_gap 2
+hc set raise_on_focus 1
+hc set default_frame_layout 1
+hc wmname herbstluftwm Hlwm
+hc set focus_follows_mouse on
+hc set swap_monitors_to_get_tag 0
 hc set smart_window_surroundings off
 hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 10
+hc set hide_covered_windows false
 
-# rules
+# --- Window rules
 hc unrule -F
-#hc rule class=XTerm tag=3 # move all xterms to tag 3
-hc rule focus=on # normally focus new clients
-#hc rule focus=off # normally do not focus new clients
-# give focus to most common terminals
-#hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
+hc unlock
+hc rule focus=on 
+hc rule class=Gimp.bin floating=on tag=6 switchtag=on floatplacement=none
+hc rule class=Gpick floating=on
+hc rule class=Lxappearance floating=on
+hc rule class=lightcord floating=on tag=3 switchtag=on
+hc rule class=Pavucontrol floating=on
+
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
-hc set tree_style '╾│ ├└╼─┐'
-
-# Autostart
-picom --config /home/sudozelda/.picom.conf --backend glx &
-nitrogen --restore &
-polybar -c ~/.config/polybar/config.ini main &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-xrandr --refresh 120 &
-
-
-# unlock, just to be sure
-hc unlock
-
-# do multi monitor setup here, e.g.:
-# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
-# or simply:
-# hc detect_monitors
-
-# find the panel
-panel=~/.config/herbstluftwm/panel.sh
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-for monitor in $(hc list_monitors | cut -d: -f1) ; do
-    # start it on each monitor
-    "$panel" "$monitor" &
-done
+hc set tree_style '╾│ ├└╼┐'
+# --- End of config.
