@@ -1,30 +1,21 @@
-;==========================================================
-;
-;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/polybar/polybar
-;
-;   The README contains a lot of information
-;
-;==========================================================
+;; - - - - - - - - - - - - - - - - - - - - - - - -
+;;  (        )   (        )                 (    
+;;  )\ )  ( /(   )\ )  ( /(    (     (      )\ )  
+;; (()/(  )\()) (()/(  )\()) ( )\    )\    (()/(  
+;;  /(_))((_)\   /(_))((_)\  )((_)((((_)(   /(_)) 
+;; (_))    ((_) (_)) __ ((_)((_)_  )\ _ )\ (_))   
+;; | _ \  / _ \ | |  \ \ / / | _ ) (_)_\(_)| _ \  
+;; |  _/ | (_) || |__ \ V /  | _ \  / _ \  |   /  
+;; |_|    \___/ |____| |_|   |___/ /_/ \_\ |_|_\
+;; - - - - - - - - - - - - - - - - - - - - - - - -
+;; - - - My Polybar config.                                            
+;; - - Please read Polybar documention before editing this file!
+;; - https://github.com/polybar/polybar/wiki
 
-;; Including powerline
-;; include-file = ~/.config/polybar/powerline-for-polybar/powerline-for-polybar.config
-;; include-file = ~/.config/polybar/powerline-for-polybar/samples/sample-colors.config
-
+;; - - - Main bar settings.
 [colors]
-;background = ${xrdb:color0:#222}
 background = #2E3440
 background-alt = #2E3440
-;foreground = ${xrdb:color7:#222}
 foreground = #D8DEE9
 foreground-alt = #D8DEE9
 primary = #ffb52a
@@ -32,11 +23,12 @@ secondary = #e60053
 alert = #BF616A
 
 [bar/mybar]
-;monitor = ${env:MONITOR:HDMI-1}
-width = 98.9%
-height = 24
-offset-x = 0.5%
-offset-y = 1.0%
+; monitor = ${env:MONITOR:HDMI-1}
+; width = 98.9%
+height = 30
+bottom = false
+; offset-x = 0.5%
+; offset-y = 1.0%
 radius = 0
 fixed-center = true
 override-redirect = true
@@ -44,174 +36,97 @@ override-redirect = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-;line-size = 2
-;line-color = #f00
+border-bottom-size = 0
+border-bottom-color = #4C566A
 
-border-size = 3
-border-color = #4C566A
+border-top-size = 0
+border-top-color = #2E3440
+
+border-right-size = 0
+border-right-color = #2E3440
+
+border-left-size = 0
+border-left-color = #2E3440
 
 padding-left = 0
-padding-right = 1
+padding-right = 2
 
-module-margin-left = 2
-module-margin-right = 1
+module-margin-left = 0
+module-margin-right = 0
 
 font-0 = Dina:style=Regular:pixelsize=10;2
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=24;1
+font-2 = siji:pixelsize=10;2
 font-3 = FontAwesome:style=Regular:pixelsize=16;2
 
-modules-left = bspwm title
+modules-left = date updates-xbps ewmh
 modules-center = 
-modules-right = pulseaudio wlan eth battery date
+modules-right = separator memory separator cpu separator pulseaudio separator wlan eth separator battery
 
-;tray-position = right
-;tray-padding = 2
-;tray-background = #0063ff
+pseudo-transparency = true
 
-;wm-restack = bspwm
-;wm-restack = i3
+compositing-background = source
+compositing-foreground = over
+compositing-overline = over
+compositing-underline = over
+compositing-border = over
 
-;override-redirect = true
-
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
-
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
+line-size = 4
 
 cursor-click = pointer
-cursor-scroll = ns-resize
 
-[module/title]
-type = internal/xwindow
-
-; Available tags:
-;   <label> (default)
-format = <label>
-format-background = #2E3440
-format-foreground = #D8DEE9
-format-padding = 1
-
-; Available tokens:
-;   %title%
-; Default: %title%
-label = %title%
-label-maxlen = 50
-
-; Used instead of label when there is no window title
-; Available tokens:
-;   None
-label-empty = 
-label-empty-foreground = #2E3440
-label-underline = #A3BE8C
-
+;; - - - Modules.
 [module/ewmh]
 type = internal/xworkspaces
 
-; Only show workspaces defined on the same output as the bar
-; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
-; But if you rename your bspwm monitors with bspc -n this option will no longer
-; behave correctly.
-; Default: true
 pin-workspaces = true
-
-; Output mode flags after focused state label
-; Default: false
 inline-mode = false
-
-; Create click handler used to focus workspace
-; Default: true
 enable-click = true
-
-; Create scroll handlers used to cycle workspaces
-; Default: true
 enable-scroll = true
-
-; Set the scroll cycle direction 
-; Default: true
 reverse-scroll = true
-
-; Use fuzzy (partial) matching on labels when assigning 
-; icons to workspaces
-; Example: code;♚ will apply the icon to all workspaces 
-; containing 'code' in the label
-; Default: false
 fuzzy-match = false
-
-; Available tokens:
-;   %name%
-; Default: %name%
 label-monitor = %name%
+format = <label-state>
+format-padding = 1
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
-label-focused = %name%
-label-focused-foreground = #8FBCBB
-label-focused-background = #4C566A
-label-focused-underline = #4C566A
-label-focused-padding = 1
+label-active = %name%
+label-active-foreground = #8FBCBB
+label-active-background = #2E3440
+label-active-underline = #2E3440
+label-active-overline = #2E3440
+label-active-padding = 1
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
 label-occupied = %name%
 label-occupied-underline = #2E3440
+label-occupied-overline = #2E3440
 label-occupied-foreground = #5E81AC
 label-occupied-background = #2E3440
 label-occupied-padding = 1
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
+label-urgent = %name%
+label-urgent-foreground = #2E3440
+label-urgent-background = #2E3440
+label-urgent-underline = #98B2CC
+label-urgent-overline = #2E3440
+label-urgent-padding = 1
+
 label-empty = %name%
 label-empty-foreground = #4C566A
 label-empty-background = #2E3440
+label-empty-overline = #2E3440
+label-empty-underline = #2E3440
 label-empty-padding = 1
 
 [module/bspwm]
 type = internal/bspwm
 
-; Only show workspaces defined on the same output as the bar
-; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
-; But if you rename your bspwm monitors with bspc -n this option will no longer
-; behave correctly.
-; Default: true
 pin-workspaces = true
-
-; Output mode flags after focused state label
-; Default: false
 inline-mode = false
-
-; Create click handler used to focus workspace
-; Default: true
 enable-click = true
-
-; Create scroll handlers used to cycle workspaces
-; Default: true
 enable-scroll = true
-
-; Set the scroll cycle direction 
-; Default: true
 reverse-scroll = true
-
-; Use fuzzy (partial) matching on labels when assigning 
-; icons to workspaces
-; Example: code;♚ will apply the icon to all workspaces 
-; containing 'code' in the label
-; Default: false
 fuzzy-match = false
 
-; ws-icon-[0-9]+ = <label>;<icon>
-; Note that the <label> needs to correspond with the bspwm workspace name
-; Neither <label> nor <icon> can contain a semicolon (;)
 ws-icon-0 = term
 ws-icon-1 = code
 ws-icon-2 = web
@@ -221,62 +136,30 @@ ws-icon-5 = media
 ws-icon-6 = games
 ws-icon-default = ♟
 
-; Available tags:
-;   <label-monitor>
-;   <label-state> - gets replaced with <label-(focused|urgent|occupied|empty)>
-;   <label-mode> - gets replaced with <label-(monocle|tiled|fullscreen|floating|locked|sticky|private)>
-; Default: <label-state>
 format = <label-state>
-
-; Available tokens:
-;   %name%
-; Default: %name%
 label-monitor = %name%
 
-; Separator in between workspaces
 label-separator = 
 label-separator-padding = 2
 label-separator-foreground = #ffb52a
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
 label-focused = %name%
 label-focused-foreground = #8FBCBB
 label-focused-background = #4C566A
 label-focused-underline = #4C566A
 label-focused-padding = 1
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
 label-occupied = %name%
 label-occupied-underline = #2E3440
 label-occupied-foreground = #5E81AC
 label-occupied-background = #2E3440
 label-occupied-padding = 1
 
-; If any values for label-dimmed-N are defined, the workspace/mode
-; colors will get overridden with those values if the monitor is out of focus
-; To only override workspaces in a specific state, use:
-;   label-dimmed-focused
-;   label-dimmed-occupied
-;   label-dimmed-urgent
-;   label-dimmed-empty
 label-dimmed-foreground = #555
 label-dimmed-underline = #2E3440
 label-dimmed-focused-background = #f00
 label-dimmed-padding = 1
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
 label-empty = %name%
 label-empty-foreground = #4C566A
 label-empty-background = #2E3440
@@ -287,7 +170,7 @@ type = internal/memory
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
+;format-underline = #81A1C1 
 label = %percentage_used%%
 
 [module/wlan]
@@ -296,8 +179,8 @@ interface = wlo1
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
 label-connected = %essid%
+;label-connected-underline = #8FBCBB
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -311,16 +194,18 @@ ramp-signal-2 = 
 ramp-signal-3 = 
 ramp-signal-4 = 
 ramp-signal-foreground = #88C0D0
+;ramp-signal-underline = #8FBCBB
 
 [module/eth]
 type = internal/network
 interface = eno1
 interval = 3.0
 
-format-connected-underline = #55aa55
+;format-connected-underline = #8FBCBB
 format-connected-prefix = " "
-format-connected-prefix-foreground = #88C0D0
+format-connected-prefix-foreground = #D8DEE9
 label-connected = %local_ip%
+;label-connected-underline = #8FBCBB
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -333,17 +218,22 @@ type = internal/date
 interval = 5
 
 date =
-date-alt = " %Y-%m-%d"
+date-alt = "%Y-%m-%d"
 
-time = %I:%M %p
-time-alt = %H:%M:%S
+time = %I:%M %p 
+time-alt = %H:%M:%S 
 
-format-prefix = 
-format-prefix-foreground = #5E81AC
-format-prefix-background = #2E3440
+format-prefix = " "
+format-prefix-padding = 0
+format-prefix-foreground = #2E3440
+format-prefix-background = #98B2CC
 format-underline = #2E3440
+format-overline = #2E3440
 
-label = %date% %time%
+label = %date%%time%
+label-foreground = #2E3440
+label-background = #98B2CC
+label-padding = 1
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -365,6 +255,7 @@ interval = 5
 ;   <ramp-volume>
 ;   <bar-volume>
 format-volume = <ramp-volume> <label-volume>
+;format-volume-underline = #81A1C1
 
 ; Available tags:
 ;   <label-muted> (default)
@@ -381,8 +272,9 @@ format-volume = <ramp-volume> <label-volume>
 ;   %percentage% (default)
 ;   %decibels%
 label-muted =  muted
-label-muted-foreground = #BF616A
+label-muted-foreground = #D8DEE9
 label-muted-background = #2E3440
+;label-muted-underline = #BF616A
 
 ; Only applies if <ramp-volume> is used
 ramp-volume-0 = 
@@ -401,7 +293,6 @@ ramp-volume-background = #2E3440
 
 ; Right and Middle click
 click-right = pavucontrol
-click-middle = pkill pulseaudio && pulseaudio &
 
 [module/battery]
 type = internal/battery
@@ -409,41 +300,154 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
-format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
+format-label-padding = 1
+;format-label-underline = #81A1C1 
 
-format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+format-charging = <animation-charging><label-charging>
+format-charging-padding = 1
+;format-charging-underline = #81A1C1
+
+label-full = Fully charged
+
+format-discharging = <animation-discharging><label-discharging>
+;format-discharging-underline = #81A1C1
 
 format-full-prefix = " "
-format-full-prefix-foreground = #81A1C1
-format-full-underline = ${self.format-charging-underline}
+format-full-prefix-padding = 0
+format-full-prefix-foreground = #D8DEE9
+;format-full-underline = #81A1C1
+
+label-charging-underline = #81A1C1
+label-charging-padding = 1
+label-discharging-underline = #81A1C1
+label-discharging-padding = 1
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-foreground = #81A1C1
+;ramp-capacity-underline = #81A1C1
 
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-foreground = #81A1C1
 animation-charging-framerate = 750
+;animation-charging-underline = #81A1C1
 
 animation-discharging-0 = 
 animation-discharging-1 = 
 animation-discharging-2 = 
 animation-discharging-foreground = #81A1C1
 animation-discharging-framerate = 750
+;animation-discharging-underline = #81A1C1
 
-[global/wm]
-margin-top = 5
-margin-bottom = 5
+[module/cpu]
+type = internal/cpu
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 2.5
+
+; Available tags:
+;   <label> (default)
+;   <bar-load>
+;   <ramp-load>
+;   <ramp-coreload>
+format =  <label>
+format-foreground  = #D8DEE9
+;format-underline = #8FBCBB
+
+; Available tokens:
+;   %percentage% (default) - total cpu load averaged over all cores
+;   %percentage-sum% - Cumulative load on all cores
+;   %percentage-cores% - load percentage for each core
+;   %percentage-core[1-9]% - load percentage for specific core
+label = %percentage%%
+;label-underline = #8FBCBB
+
+; Spacing between individual per-core ramps
+ramp-coreload-spacing = 0
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
+ramp-coreload-foreground = #D8DEE9
+;ramp-coreload-underline = #8FBCBB
+
+[module/speedtest]  
+type = custom/script  
+exec-if = hash speedtest
+exec = "$HOME/.config/polybar/scripts/polybar-speedtest"  
+interval = 5.0
+
+[module/updates-xbps]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/updates-xbps.sh
+interval = 20
+format = <label>
+label = %output%
+label-padding = 0
+format-underline = #2E3440
+format-overline = #2E3440
+format-background = #98B2CC
+format-foreground = #2E3440
+format-padding = 0
+
+[module/separator]
+type = custom/text
+content = " | "
+
+; "content" has the same properties as "format-NAME"
+content-background = #2E3440
+content-foreground = #4C566A
+content-padding = 0
+
+[module/separator2]
+type = custom/text
+content = |
+
+; "content" has the same properties as "format-NAME"
+content-background = #98B2CC
+content-foreground = #2E3440
+content-padding = 1
+
+[module/vpn-wireguard-wg]
+type = custom/script
+exec = ~/.config/polybar/scripts/vpn-wireguard-wg.sh
+interval = 5
+click-left = ~/.config/polybar/scripts/vpn-wireguard-wg.sh --toggle &
+
+[module/polywins]
+type = custom/script
+exec = ~/.config/polybar/scripts/polywins.sh 2>/dev/null
+format = <label>
+label = %output%
+label-padding = 0
+format-padding = 0
+tail = true
+
+[module/pulseaudio-microphone]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/pulseaudio-microphone.sh
+tail = true
+click-left = $HOME/.config/polybar/scripts/pulseaudio-microphone.sh --toggle &
+
+[module/info-hlwm-workspaces]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/info-hlwm-workspaces.sh
+tail = true
+scroll-up = herbstclient use_index -1 --skip-visible &
+scroll-down = herbstclient use_index +1 --skip-visible &
 
 [module/2bws]
 type              = custom/script
-exec              = bash ~/.config/polybar/scripts/2bwm.sh
-interval          = 0.01
-format-padding    = 1
+exec              = bash ~/.config/polybar/scripts/2bws.sh
+interval          = 0.35
+format-padding    = 0
 format-background = #2E3440
-format-foreground = #D8DEE9
+;;format-foreground = #D8DEE9
