@@ -1,4 +1,3 @@
-
 /* See LICENSE file for copyright and license details. */
 
 /* interval between updates (in ms) */
@@ -63,13 +62,26 @@ static const char unknown_str[] = "n/a";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 static const struct arg args[] = {
+
+/*	I'm using scripts from my personal-dot-files repo  
+	just download them, make them executable and put them in /usr/local bin		*/
+
 	/* function format          argument */
-	//{ datetime, "%s",           "%F %T" },
-	//{ wifi_perc, "W: (%3s%% on ", "wlp8s0" },
-  // { run_command, "[kernel - %4s] ", "uname -sr" }, //
-        { netspeed_rx, "   %sB/s  |  ", "wlo1" },
-	{ run_command, "%4s  |  ", "amixer sget Master | awk -F\"[][]\" '/%/ { print $2 }' | head -n1" },
-	{ battery_perc, " %s%%  |  ", "BAT0"        },
-	{ run_command, " %s  |  ", "mullvad status 2> /dev/null | head -n 1 | awk '{ print $3 }'", },
-	{ datetime, "%s",           "%b %e %a, %I:%M %p " },
+	/* { run_command,	"%2s |", "cpu.sh" },
+    	{ run_command,	"%2s |", "memory.sh" },
+    	{ run_command,	"%2s |", "hdd.sh" },
+	{ run_command,	"%2s |", "network.sh" },
+	{ run_command,	"%s |", "vol.sh " },
+	{ run_command,	"%10s ", "weatherbar.sh " },
+	{ run_command,	"%2s |", "clock.sh" }, */
+	
+  { cpu_perc,	" CPU: %s%% < ", NULL },
+	{ ram_perc,	"RAM: %s%% < ", NULL },
+	{ ipv4,		"NET: %2s < ", "eno1" },
+	{ run_command,	"VPN:%2s < ", "ip a | grep mullvad-68 | grep inet | wc -l" },
+	{ battery_perc, "BAT:%s%% < ", "BAT0", },
+  /* { battery_state, "%s% < ", "BAT0" }, */
+	{ run_command,	"VOL: %2s < ", "amixer sget Master | grep Right | grep % | sed 's/[][]//g' | awk '{print $5}' " },
+	{ datetime, "%s",           "%a, %b  %d %R" },
+	
 };
