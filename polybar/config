@@ -25,7 +25,7 @@ alert = #BF616A
 [bar/mybar]
 ; monitor = ${env:MONITOR:HDMI-1}
 ; width = 98.9%
-height = 30
+height = 32
 bottom = false
 ; offset-x = 0.5%
 ; offset-y = 1.0%
@@ -49,7 +49,7 @@ border-left-size = 0
 border-left-color = #2E3440
 
 padding-left = 0
-padding-right = 2
+padding-right = 1
 
 module-margin-left = 0
 module-margin-right = 0
@@ -59,7 +59,7 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;2
 font-3 = FontAwesome:style=Regular:pixelsize=16;2
 
-modules-left = date updates-xbps ewmh
+modules-left = date ewmh
 modules-center = 
 modules-right = separator memory separator cpu separator pulseaudio separator wlan eth separator battery
 
@@ -175,7 +175,7 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlo1
+interface = wlp4s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
@@ -193,7 +193,7 @@ ramp-signal-1 = 
 ramp-signal-2 = 
 ramp-signal-3 = 
 ramp-signal-4 = 
-ramp-signal-foreground = #88C0D0
+ramp-signal-foreground = #D8DEE9
 ;ramp-signal-underline = #8FBCBB
 
 [module/eth]
@@ -220,19 +220,19 @@ interval = 5
 date =
 date-alt = "%Y-%m-%d"
 
-time = %I:%M %p 
+time = %I:%M %p, %b %e %a		 
 time-alt = %H:%M:%S 
 
 format-prefix = " "
 format-prefix-padding = 0
 format-prefix-foreground = #2E3440
-format-prefix-background = #98B2CC
+format-prefix-background = #81A1C1
 format-underline = #2E3440
 format-overline = #2E3440
 
 label = %date%%time%
 label-foreground = #2E3440
-label-background = #98B2CC
+label-background = #81A1C1
 label-padding = 1
 
 [module/pulseaudio]
@@ -288,7 +288,7 @@ ramp-volume-4 = 
 ; If undefined, <ramp-volume> will be used for both
 ; Only applies if <ramp-volume> is used
 ramp-headphones-0 = 
-ramp-volume-foreground = #8FBCBB
+ramp-volume-foreground = #D8DEE9
 ramp-volume-background = #2E3440
 
 ; Right and Middle click
@@ -304,7 +304,7 @@ format-label-padding = 1
 ;format-label-underline = #81A1C1 
 
 format-charging = <animation-charging><label-charging>
-format-charging-padding = 1
+format-charging-padding = 0
 ;format-charging-underline = #81A1C1
 
 label-full = Fully charged
@@ -317,28 +317,28 @@ format-full-prefix-padding = 0
 format-full-prefix-foreground = #D8DEE9
 ;format-full-underline = #81A1C1
 
-label-charging-underline = #81A1C1
+;label-charging-underline = #81A1C1
 label-charging-padding = 1
-label-discharging-underline = #81A1C1
+;label-discharging-underline = #81A1C1
 label-discharging-padding = 1
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
-ramp-capacity-foreground = #81A1C1
+ramp-capacity-foreground = #D8DEE9
 ;ramp-capacity-underline = #81A1C1
 
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
-animation-charging-foreground = #81A1C1
+animation-charging-foreground = #D8DEE9
 animation-charging-framerate = 750
 ;animation-charging-underline = #81A1C1
 
 animation-discharging-0 = 
 animation-discharging-1 = 
 animation-discharging-2 = 
-animation-discharging-foreground = #81A1C1
+animation-discharging-foreground = #D8DEE9
 animation-discharging-framerate = 750
 ;animation-discharging-underline = #81A1C1
 
