@@ -4,21 +4,20 @@
 static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-	"terminus:size=10"
+	"dina:size=10"
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { "#bbbbbb", "#222222" },
-	[SchemeSel] = { "#A3BE8C", "#005577" },
-	[SchemeSelHighlight] = { "#A3BE8C", "#4C566A" },
-	[SchemeNormHighlight] = { "#ffc978", "#222222" },
-	[SchemeOut] = { "#A3BE8C", "#00ffff" },
-	[SchemeHp] = { "#A3BE8C", "#333333" }
+	[SchemeNorm] = { "#ebdbb2", "#1D2021" },
+	[SchemeSel] = { "#1D2021", "#8EC07C" },
+	[SchemeOut] = { "#ebdbb2", "#8ec07c" },
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;
-static unsigned int lineheight = 0;         /* -h option; minimum height of a menu line     */
+/* -h option; minimum height of a menu line */
+static unsigned int lineheight = 18;
+static unsigned int min_lineheight = 8;
 
 /*
  * Characters not considered part of a word while deleting words
@@ -27,4 +26,4 @@ static unsigned int lineheight = 0;         /* -h option; minimum height of a me
 static const char worddelimiters[] = " ";
 
 /* Size of the window border */
-static const unsigned int border_width = 2;
+static unsigned int border_width = 2;
