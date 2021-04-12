@@ -62,26 +62,14 @@ static const char unknown_str[] = "n/a";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 static const struct arg args[] = {
-
-/*	I'm using scripts from my personal-dot-files repo  
-	just download them, make them executable and put them in /usr/local bin		*/
-
-	/* function format          argument */
-	/* { run_command,	"%2s |", "cpu.sh" },
-    	{ run_command,	"%2s |", "memory.sh" },
-    	{ run_command,	"%2s |", "hdd.sh" },
-	{ run_command,	"%2s |", "network.sh" },
-	{ run_command,	"%s |", "vol.sh " },
-	{ run_command,	"%10s ", "weatherbar.sh " },
-	{ run_command,	"%2s |", "clock.sh" }, */
-	
-  { cpu_perc,	" CPU: %s%% < ", NULL },
-	{ ram_perc,	"RAM: %s%% < ", NULL },
-	{ ipv4,		"NET: %2s < ", "eno1" },
-	{ run_command,	"VPN:%2s < ", "ip a | grep mullvad-68 | grep inet | wc -l" },
-	{ battery_perc, "BAT:%s%% < ", "BAT0", },
-  /* { battery_state, "%s% < ", "BAT0" }, */
-	{ run_command,	"VOL: %2s < ", "amixer sget Master | grep Right | grep % | sed 's/[][]//g' | awk '{print $5}' " },
-	{ datetime, "%s",           "%a, %b  %d %R" },
+  // { cpu_perc,	" [cpu: %s%% ", NULL },
+  // { ram_perc,	"ram: %s%%  ", NULL },
+	{ ipv4,		"[<eth: %2s ", "eno1" },
+	{ wifi_essid,   "- %s>", "wlp4s0", },
+	//	{ run_command,	"vpn:%2s < ", "ip a | grep mullvad-68 | grep inet | wc -l" },
+	{ battery_perc, " <bat: %s%%>", "BAT0", },
+	// { battery_state, "%s%  ", "BAT0" }, */
+	{ run_command,	" <vol: %2s> ", "amixer sget Master | grep Right | grep % | sed 's/[][]//g' | awk '{print $5}' " },
+	{ datetime, "<%s>]",           "%a, %b %d %R" },
 	
 };
