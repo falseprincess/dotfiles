@@ -1,29 +1,28 @@
-# My Simple Xinitrc
+#!/usr/bin/env bash
 
-# Fix for some applications taking a long time to lanch 
-# dbus-update-activation-environment DISPLAY XAUTHORITY
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
+fi
 
-# Launching my status bar (dwm)
-# slstatus &
+# Sourcing my xprofile.
+[ -f /etc/xprofile ] && . /etc/xprofile
+[ -f ~/.xprofile ] && . ~/.xprofile
 
-# 2bwm autostart.
-$HOME/.config/2bwm/autostart.sh
-# nitrogen --restore & # Load my wallpaper.
-# xrdb -load ~/.Xresources & # Load resources.b
-# picom --config /home/sudozelda/.picom.conf --backend glx & # Launching picom.
-# xsetroot -cursor_name left_ptr &  # Setting my default cursor theme.
-# xrandr --refresh 120 &
-# polybar mybar &
+# Some default x programs to start.
+xsetroot -cursor_name left_ptr &
+xrandr --refresh 144
+xset b 0
 
-exec dbus-run-session herbstluftwm
-# exec awesome
-# exec startfluxbox
-# exec twm
-# exec herbstluftwm
-# exec bspwm
-# exec qtile
-# exec awesome
-# exec twm
-# exec fvwm
-# exec xmonad
-# exec openbox
+# - - Starting my wm
+# exec dbus-run-session berry
+
+slstatus &
+spotifyd --no-daemon --verbose
+start-pulseaudio-x11 --daemonize=no --verbose
+exec dbus-run-session dwm
+
+# Because ufetch is retarded.
+# dwm
