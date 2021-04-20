@@ -1,8 +1,9 @@
 
+
 ;; setting my theme.
 (load-theme 'gruvbox-dark-soft t)
 
-;; setting up spaceline with some options.
+ ;; setting up spaceline with some options.
 (require 'spaceline-config)
 (spaceline-emacs-theme)
 

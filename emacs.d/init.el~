@@ -24,6 +24,10 @@
 (set-face-attribute 'default nil :font "dina-8" )
 (set-frame-font "dina-8" nil t)
 
+;; highlight indentation colors.
+(set-face-background 'highlight-indentation-face "#458588")
+(set-face-background 'highlight-indentation-current-column-face "#83A598")
+
 ;; Load Custom Themes from the ~/.emacs.d/themes/ dir
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 
