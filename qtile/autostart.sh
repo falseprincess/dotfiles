@@ -1,10 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash 
 
-# --- Setting my wallpaper
-nitrogen --restore &
-
-# --- Autostarting my compositor 
-picom --config /home/sudozelda/.picom.conf &
-
-# --- Autostarting my policykit
-/usr/bin/lxpolkit &
+xrdb -q &
+killall picom
+picom --daemon
+feh --bg-fill $HOME/.config/qtile/wall.jpg & 
