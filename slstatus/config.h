@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* interval between updates (in ms) */
-const unsigned int interval = 1000;
+const unsigned int interval = 250;
 
 /* text to show if no value can be retrieved */
 static const char unknown_str[] = "n/a";
@@ -61,14 +61,17 @@ static const char unknown_str[] = "n/a";
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
+
 static const struct arg args[] = {
   // { cpu_perc,	" [cpu: %s%% ", NULL },
   // { ram_perc,	"ram: %s%%  ", NULL },
-	{ ipv4,		"[<eth: %2s ", "eno1" },
-	{ wifi_essid,   "- %s>", "wlp4s0", },
-	//	{ run_command,	"vpn:%2s < ", "ip a | grep mullvad-68 | grep inet | wc -l" },
+	{ ipv4,		"[<eno1: %2s>", "eno1" },
+	// { netspeed_rx,   "- %2s ",     "eno1" },
+	// { netspeed_tx,   "%2s",     "eno1" },
+  // { wifi_essid,   "- %s>", "wlp4s0", },
+  // { run_command,	"vpn:%2s < ", "ip a | grep mullvad-68 | grep inet | wc -l" },
 	{ battery_perc, " <bat: %s%%>", "BAT0", },
-	// { battery_state, "%s%  ", "BAT0" }, */
+  // { battery_state, "%s%  ", "BAT0" }, */
 	{ run_command,	" <vol: %2s> ", "amixer sget Master | grep Right | grep % | sed 's/[][]//g' | awk '{print $5}' " },
 	{ datetime, "<%s>]",           "%a, %b %d %R" },
 	
