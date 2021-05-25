@@ -1,4 +1,3 @@
-
 # ----------------------------------------------------------------------------
 # Imports.
 import os
@@ -30,16 +29,17 @@ editor = "emacs"
 
 # ----------------------------------------------------------------------------
 # Gruvbox Colors.
-bg = "#3c3836"
-fg = "#d5c4a1"
-fg_alt = "#7c6f64"
-red = "#fb4933"
-green = "#b8bb26"
-green2 = "#8ec07c"
-yellow = "#fabd2f"
-blue = "#83a598"
-purple = "#d3869b"
-orange = "#fe8019"
+bg = "#2e3440"
+fg = "#d8dee9"
+fg_alt = "#4c566a"
+red = "#bf616a"
+green = "#a3be8c"
+cyan = "#88c0d0"
+yellow = "#ebcb8b"
+blue = "#5e81ac"
+blue1 = "#81a1c1"
+purple = "#b48ead"
+orange = "#d08770"
 
 # ----------------------------------------------------------------------------
 # Keybindings.
@@ -71,7 +71,7 @@ keys = [
         selected_background=blue,
         selected_foreground=bg,
         dmenu_ignorecase=False,
-        dmenu_height=20, 
+        dmenu_height=21, 
     ))),
     
     # launch my terminal.
@@ -140,6 +140,8 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
     {'wmclass': 'discord'},
+    {'wmclass': 'kcolor-picker'},
+    {'wmclass': 'galculator'},
     {'wmclass': 'lxappearance'},
     {'wmclass': 'gnome-screenshot'},
 ], border_width = 2, border_focus = fg, border_normal = fg_alt)
@@ -149,14 +151,13 @@ focus_on_window_activation = "smart"
 # ----------------------------------------------------------------------------
 # Groups.
 group_names = [("TERM", {'layout': 'monadtall'}),
+               ("DEV", {'layout': 'monadtall'}),
                ("WEB", {'layout': 'monadtall'}),
                ("CHAT", {'layout': 'monadtall'}),
                ("MEDIA", {'layout': 'monadtall'}),
                ("GFX", {'layout': 'monadtall'}),
                ("VM", {'layout': 'monadtall'}),
                ("MISC", {'layout': 'monadtall'})]
-               # ("VIII", {'layout': 'monadtall'}),
-               # ("IX", {'layout': 'floating'})]
 
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
@@ -168,11 +169,11 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 # Layouts.
 layouts = [
     layout.MonadTall(
-        border_focus = fg,
-        border_normal = fg_alt,
-        border_width = 2,
-        change_size = 20,
-        margin = 10,
+        border_focus=fg,
+        border_normal=fg_alt,
+        border_width=2,
+        change_size=20,
+        margin=10,
     ),
 ]
 
@@ -202,10 +203,10 @@ screens = [
                     rounded=False,
                     borderwidth=0,
                     highlight_method='line',
-                    highlight_color=[blue, blue],
+                    highlight_color=[blue, blue1],
                     block_highlight_text_color=bg,
-                    this_current_screen_border=blue,
-                    this_screen_border=blue,
+                    this_current_screen_border=blue1,
+                    this_screen_border=blue1,
                     active=fg,
                     inactive=fg_alt,
                     padding=8
@@ -213,7 +214,7 @@ screens = [
                 ),
                 widget.WindowName(
                     background=bg,
-                    foreground=green,
+                    foreground=purple,
                     format='{state}{name}',
                     max_chars=20,
                     padding=10
@@ -226,20 +227,20 @@ screens = [
                 
                 widget.Net(
                     padding=5,
-                    foreground=blue,
+                    foreground=blue1,
                     format='{down} ↓↑ {up}',
                     update_interval=1
                 ),
 
                 widget.TextBox(
                     text='|',
-                    padding=10,
+                    padding=5,
                     foreground=fg_alt
                 ),
 
                 widget.TextBox(
                     text='',
-                    padding=0,
+                    padding=5,
                     fontsize=14,
                     foreground=green
                 ),
@@ -257,20 +258,21 @@ screens = [
                 ),
                 
                  widget.TextBox(
-                    text='',
+                    text='',
                     padding=5,
-                    fontsize=18,
-                    foreground=blue
+                    fontsize=16,
+                    foreground=blue1
                 ),
                 widget.Volume(
                     padding=5,
-                    foreground=blue,
+                    foreground=blue1,
                     device='default',
                     update_interval=0.1
                 ),
 
                 widget.TextBox(
                     text='|',
+                    padding=5,
                     foreground=fg_alt
                 ),
                 
@@ -292,18 +294,20 @@ screens = [
 
                 widget.TextBox(
                     text='|',
+                    padding=5,
                     foreground=fg_alt
                 ),
                 
                 widget.Clock(
-                    padding=8,
+                    padding=5,
                     format='%a %I:%M %p',
-                    foreground=blue,
+                    foreground=blue1,
                     update_interval=60
                 ),
 
                 widget.TextBox(
                     text='}',
+                    padding=5,
                     foreground=fg_alt
                 ),
             ],

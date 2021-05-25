@@ -1,6 +1,5 @@
 #!/usr/bin/env bash 
 
 xrdb -q &
-killall picom
-picom --daemon
-feh --bg-fill $HOME/.config/qtile/wall.jpg & 
+~/.config/qtile/.fehbg
+xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &
