@@ -1,17 +1,8 @@
 
+## defining more paths ##
 
-# - - - EXPORTS.
-# my prompt.
-export export PS1='\e[0;32m\w\e[m $ '
-# exporting some paths.
-export PATH=$PATH:/usr/local/bin/
-export PATH=$PATH:~/AppImages/
-export PATH=$PATH:~/Scripts/
-export PATH=$PATH:/bin/
-# manually exporting my language. 
-export LANG=en_US.UTF-8
-export IGNOREEOF=100
-# coloring my man pages.
+
+## coloring manpages for comfy viewing ##
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
 export LESS_TERMCAP_me=$'\E[0m'
@@ -19,66 +10,102 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
-# grep colors
-export GREP_OPTIONS='--color=auto'
 
-# - - - Misc settings.
-shopt -s autocd
-shopt -s histappend
-shopt -s checkwinsize
-shopt -s no_empty_cmd_completion
-unset use_color sh 
+## some defaults ##
+alias TERM=st
+alias EDITOR=emacs
+alias BROWSER=firefox-bin
+alias FILEMANAGEMENT='pcmanfm .'
 
-# - - - ALIASES.
-alias c="clear"
-alias ps="ps auxf"
-alias df="df -Tha --total"
-alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
-# easy way to find whats taking up space.
-alias diskspace="du -S | sort -n -r |more"
-# exa
-alias ls="exa --long --header --git"
-# no more cd.
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-# - - - Some useless unixporn program aliases.
-alias tty-clock="tty-clock -c -C 4 -s -t"
-alias pipes="pipes.sh -t 1 -f 75"
+## generic but useful aliases ##
+alias y='yes'
+alias x='exit'
+alias c='clear'
+alias bc='bc -l'
+alias rm='rm -rv'
+alias cp='cp -rv'
+alias mv='mv -vu'
+alias la='ls -lisA'
+alias rms='shred -uz'
+alias mkdir='mkdir -pv'
+alias hs='history | grep -i'
+alias mount='mount |column -t'
+alias myip='curl http://ifconfig.me/ip'
+alias lh='ls -lisAd .[^.]*'
+alias make='make -j16'
+alias wget='wget -c'
+## a quick way to get out of current directory ##
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+## pass options to free ##
+alias meminfo='free -m -l -t'
+## Stop after sending count ECHO_REQUEST packets ##
+alias ping='ping -c 5'
+## Do not wait interval 1 second, go fast ##
+alias fastping='ping -c 100 -s.2'
+## Parenting changing perms on / ##
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+## get top process eating memory ##
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+## get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3'
+alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+## progress bars are guilty pleasures ##
+alias cpv='rsync -ah --info=progress2'
+## mount now does what it should! ##
+alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
+## gentoo aliases ##
+alias list-explicits="cat /var/lib/portage/world"
+alias list-packages="eix --color -c --world | less -R"
+alias update="sudo emerge --sync; sudo emerge --ask --verbose --update --deep --changed-use @world"
 
-# - - - VARIABLES.
-CASE_SENSITIVE="true"
-HYPHEN_INSENSITIVE="true"
-ENABLE_CORRECTION="true"
+## unixporn aliases, lol ##
+alias unimatrix='unimatrix -n -s 96 -l o -c blue'
 
-# Autostart X.
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec startx
+# if user is not root, pass all commands via sudo #
+if [ $UID -ne 0 ]; then
+    alias reboot='sudo /sbin/reboot'
+    alias poweroff='sudo /sbin/poweroff'
+    alias halt='sudo /sbin/halt'
+    alias shutdown='sudo /sbin/shutdown'
+    
 fi
 
-# Nice script to extract files.
+## cool little archive extract script ##
 extract () {
-   if [ -f $1 ] ; then
-       case $1 in
-           *.tar.bz2)   tar xvjf $1    ;;
-           *.tar.gz)    tar xvzf $1    ;;
-           *.bz2)       bunzip2 $1     ;;
-           *.rar)       unrar x $1       ;;
-           *.gz)        gunzip $1      ;;
-           *.tar)       tar xvf $1     ;;
-           *.tbz2)      tar xvjf $1    ;;
-           *.tgz)       tar xvzf $1    ;;
-           *.zip)       unzip $1       ;;
-           *.Z)         uncompress $1  ;;
-           *.7z)        7z x $1        ;;
-           *)           echo "don't know how to extract '$1'..." ;;
-       esac
-   else
-       echo "'$1' is not a valid file!"
-   fi
- }
+     if [ -f $1 ] ; then
+         case $1 in
+             *.tar.bz2)   tar xjf $1        ;;
+             *.tar.gz)    tar xzf $1     ;;
+             *.bz2)       bunzip2 $1       ;;
+             *.rar)       rar x $1     ;;
+             *.gz)        gunzip $1     ;;
+             *.tar)       tar xf $1        ;;
+             *.tbz2)      tar xjf $1      ;;
+             *.tgz)       tar xzf $1       ;;
+             *.zip)       unzip $1     ;;
+             *.Z)         uncompress $1  ;;
+             *.7z)        7z x $1    ;;
+             *)           echo "'$1' cannot be extracted via extract()" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
 
-# - - - Some pretty, but useless commands I am launching. 
-# neofetch
-ufetch
+# Test for an interactive shell.  There is no need to set anything
+# past this point for scp and rcp, and it's important to refrain from
+# outputting anything in those cases.
+if [[ $- != *i* ]] ; then
+	# Shell is non-interactive.  Be done now!
+	return
+fi
+
+neofetch
